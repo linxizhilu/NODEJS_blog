@@ -1,0 +1,40 @@
+extends layout
+block style
+  style.
+    form .btn {
+      margin:0 10px 0 0;
+     }
+    form div span{
+     padding:0 20px;
+    }
+block content1
+  div.blog-header.text-center
+    h2.blog-title= title
+    p.lead.blog-description.text-center
+      small(style="margin-left:100px;") ——Welcome to #{title}
+
+  div.blog-post.row
+    form.col-xs-10.col-xs-push-1.col-sm-6.col-sm-push-3.col-md-4.col-md-push-4.form-horizontal(action="/login" method="post")
+      if errStr
+        div.form-group.text-danger.text-center.bg-danger 用户名或者密码错误
+      div.form-group
+        label.col-sm-3.control-label 用户名：
+        div.col-sm-9
+          input.form-control(type="text" name="user_name" id="user_name" placeholder="请输入您的邮箱或者电话...")
+      div.form-group
+        label.col-sm-3.control-label 密 &nbsp;&nbsp;&nbsp; 码：
+        div.col-sm-9
+          input.form-control(type="password" name="user_password" id="user_password" placeholder="请输入您的密码")
+      div.form-group
+        label.col-sm-3.control-label 记 &nbsp;&nbsp;&nbsp; 住：
+        div.col-sm-9
+          p.cookiebtn.btn.btn-default(type=button id="only_username") 用户名
+          p.cookiebtn.btn.btn-default(type=button id="all_userinfo")  密 &nbsp;&nbsp;&nbsp; 码
+      div.form-group
+        div.col-sm-9.col-sm-push-3
+          button.btn.btn-primary.btn-block(type="submit" id="submitBtn") 提 交
+      div.form-group
+        div.col-sm-9.col-sm-push-3.text-center
+          a(href="/reg") 注册用户
+          span |
+          a(href="/forgetpassword") 忘记密码

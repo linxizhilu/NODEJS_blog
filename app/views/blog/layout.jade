@@ -1,0 +1,70 @@
+extends ../layout.jade
+
+append css
+  link(rel='stylesheet', href='css/blog.css')
+block style
+
+block main
+  block head
+    .blog-masthead
+      .container
+        nav.blog-nav
+          if pageName === '/'
+            a.blog-nav-item.active(href='/') 首页
+          else
+            a.blog-nav-item(href='/') 首页
+          if pageName.indexOf('category')>-1
+            a.blog-nav-item.active(href='/category') 分类
+          else
+            a.blog-nav-item(href='/category') 分类
+          if pageName === '/about'
+            a.blog-nav-item.active(href='/about') 关于
+          else
+            a.blog-nav-item(href='/about') 关于
+          if pageName === '/contact'
+            a.blog-nav-item.active(href='/contact') 联系
+          else
+            a.blog-nav-item(href='/contact') 联系
+          if logined
+            a.blog-nav-item.fr(href='/admin') 去后台
+          else
+            a.blog-nav-item.fr(href='/login') 登录
+  block content1
+    .container
+      .row
+        .col-sm-8.blog-main
+          .blog-post
+            block content
+          // /.blog-post
+        block sidebar
+          .col-sm-3.col-sm-offset-1.blog-sidebar(style="margin-top:20px")
+            .sidebar-module.sidebar-module-inset
+              h4 关于我
+              p
+                p 我有一个可爱的老婆
+                strong 四位健康的父母
+                p 一个好姐姐，两个弟弟，两个外甥女，我幸福，我骄傲
+            .sidebar-module
+              h4(style="background:lightblue;padding:5px;") 文章分类
+              ol.list-unstyled
+                -each category in categorys
+                  li
+                    - var href = '/category?category='+category.name
+                      a(href=href)= category.name
+            .sidebar-module
+              h4(style="background:lightblue;padding:5px;") 作者
+              ol.list-unstyled
+                - each author in post_authors
+                  li
+                    a(href='#')= author.user_name
+
+
+  block foot
+    footer.blog-footer
+      p
+        h3
+          strong 这是一个关于NODE的故事
+      p
+        |&copy 欢迎交流 &nbsp;
+        a(href="mailto:luqiang1631@126.com") luqiang1631@126.com
+

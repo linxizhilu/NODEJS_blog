@@ -1,0 +1,94 @@
+extends layout
+
+block content
+  div.blog-header
+    h2.blog-title= title
+    p.lead.blog-description.text-right ——Welcome to #{title}
+  div
+    div.blog-post
+      ul.list-unstyled.post_content
+        li
+          h3
+            a(href="/view?title="+post.post_slug title=post.post_title)
+              = post.post_title
+          p.blog-post-meta
+            |created：
+            time
+              = timeFormat(post.post_created).format('YYYY-MM-DD')
+            |&nbsp;&nbsp;by&nbsp;
+            a(href="/")
+              = post.post_author.user_name
+            |&nbsp;&nbsp;分类：
+            a(href="/category?category="+post.post_category.name)
+              = post.post_category.name
+            |&nbsp;喜欢：
+            a(hef="#")
+              i.fa.fa-heart
+              = post.post_meta.fav
+            p.post_content_body
+              != post.post_content
+    nav.text-center
+      ul.pagination(style="margin:0 auto")
+        if prePost!== null
+          li
+            -var preHref = '/view?title='+prePost.post_slug
+              a(href=preHref title=prePost.post_title)
+                = truncate(prePost.post_title,15,0,'...')
+        else
+          li
+            a= 这是第一篇哦
+        if nextPost!== null
+          li
+            -var nextHref = '/view?title='+nextPost.post_slug
+              a(href = nextHref title=nextPost.post_title)
+                = truncate(nextPost.post_title,15,0,'...')
+        else
+          li.disabled
+            a 静待更新O(∩_∩)O~
+
+    ul.list-unstyled.container(style="margin:20px 0 0 0;")
+      - each comment in comments
+        li
+          dl.row
+            dt.col-xs-2.text-left(style="height:150px;")= truncate(comment.comment_author,(5*Math.random()+3),0,' ')
+            dd.col-xs-8(style='height:150px;')
+              a= truncate(comment.comment_content,150,0,'...')
+
+    form(action="/view" method="post")
+      fieldset
+        legend
+          strong(style="color:#00bdfe") 观点区
+        div.form-group
+          label(for="useraccount") 您的称呼
+          input#useraccount.form-control(name="useraccount" type="text"  placeholder="怎么称呼呢？")
+        div.form-group
+           label(for="usercontent") 您的观点
+           textarea#usercontent.form-control(name="usercontent" clo=5 rows=10 required="required" placeholder="说出您的观点")
+        button.btn.btn-default.btn-lg 提交
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  div.blog-header
+    h2.blog-title= title
+    p.lead.blog-description.text-right ——Welcome to #{title}
+  div
+    div.blog-post
+      ul.list-unstyled.post_content
+        - each item in posts
+          li
+            h3
+              -var href="/view?title="+item.post_slug
+                a(href=href title=item.post_title)
+                  = truncate(item.post_title,30,0,'...')
+            p.blog-post-meta
+              |created：
+              time
+                = timeFormat(item.post_created).format('YYYY-MM-DD')
+              |&nbsp;&nbsp;by&nbsp;
+              a(href="/category?author="+item.post_author.user_name)
+                = item.post_author.user_name
+              |&nbsp;&nbsp;分类：
+              a(href="/category?category="+item.post_category.name)
+                = item.post_category.name
+              |&nbsp;喜欢：
+              a(hef="#")
+                = item.post_meta.fav
+              p.post_content_body
+                = truncate(item.post_content,180,0,'..')
+    nav.text-center
+      ul.pagination(style="margin:0 auto")
+        li(class={disabled: pageNum === 1})
+          - var href= '/?pageNum='+((pageNum-1) > 0?(pageNum-1):1)
+            a#previous(href=href)
+              span 《
+        - for(step=4,pageTotal<=step?(i=1,end=pageTotal) : pageNum<3?(i=1,end=i+step): pageNum>pageTotal-step?(i=pageTotal-step,end=pageTotal):(i=pageNum-2,end=i+step);i<=end;i++)
+            li(class={active: i==pageNum})
+              -var href = '/?pageNum='+i
+                a(href = href)
+                  = i
+        li(class={disabled: pageNum === pageTotal})
+          - var href="/?pageNum="+((pageNum+1) > pageTotal ?pageTotal:(pageNum+1))
+            a#next(href=href)
+              span 》

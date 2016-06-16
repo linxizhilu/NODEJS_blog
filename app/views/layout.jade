@@ -1,0 +1,24 @@
+doctype html
+html(lang='zh-cn')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title= title
+    block css
+      link(rel="styleSheet",href='/Awesome/css/font-awesome.css')
+      link(rel="stylesheet", href='/css/bootstrap.css')
+      link(rel="stylesheet",href="/css/style.css")
+    block ckeditor
+    block style
+    block style1
+  body
+    block main
+  block js
+    script(src = '/components/jquery/dist/jquery.js' )
+    script(src = '/components/bootstrap/dist/js/bootstrap.js')
+    if ENV_DEVELOPMENT
+      script(src='http://localhost:35729/livereload.js')
+  block script

@@ -1,0 +1,62 @@
+extends layout
+block content
+  h1.page-header.text-center.padding5= title
+  .row.placeholders
+    - each category in categorys
+      .col-xs-3.col-sm-2.placeholder
+        a(href="/admin?post_category=" + category.name+'&&pageNum=1')
+          img.img-responsive(src='data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==', width='100', height='100',title=category.name alt= category.name)
+        h4
+          a(href="/admin?post_category=" + category.name+'&&pageNum=1')= category.name
+        span.text-muted Something else
+
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th 序号
+        th(style="width:25%") 标题
+        th 分类
+        th 作者
+        th 被喜欢
+        th 是否发布
+        th 最后操作
+        th 更新
+        th 删除
+
+    tbody
+      - var num = 0
+        each post in posts
+          tr
+            td=++num
+            td
+              a(href="/view?title="+post.post_slug)
+                = truncate(post.post_title,30,0,'...')
+            td= post.post_category.name
+            td= post.post_author.user_name
+            td= post.post_meta.fav
+            td
+              a(href="/admin/post/publish?publish="+post.post_published title=post.post_published?'点击取消发布':'点击未发布')= post.post_published?'已发布':'未发布'
+            td= timeFormat(post.post_modified).format('YYYY-MM-DD') || timeFormat(post.post_created).format('YYYY-MM-DD')
+            td
+              a(href="/admin/post/update?postid="+post._id)
+                |编辑
+            td
+              a(href="/admin/post/delete?postid=" + post._id)
+                |删除
+  nav.text-center(style="margin-bottom:100px")
+    ul.pagination(style="margin:0 auto")
+      li(class={disabled: pageNum === 1})
+        - var href= pageBaseUrl+((pageNum-1) > 0?(pageNum-1):1)
+        a#previous(href=href)
+          span 《
+      - for(step=4,pageTotal<=step?(i=1,end=pageTotal) : pageNum<3?(i=1,end=i+step): pageNum>pageTotal-step?(i=pageTotal-step,end=pageTotal):(i=pageNum-2,end=i+step);i<=end;i++)
+        li(class={active: i == pageNum})
+          -var href = pageBaseUrl+i
+          a(href = href)
+            = i
+      li(class={disabled: pageNum === pageTotal})
+        - var href=pageBaseUrl+((pageNum+1) > pageTotal ?pageTotal:(pageNum+1))
+        a#next(href=href)
+          span 》
+    div.pageination.text-center
+      strong= '共'+pageNum+'/'+pageTotal+'页'

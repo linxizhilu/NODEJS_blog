@@ -1,0 +1,17 @@
+extends layout
+block content
+  div.blog-header
+    h2.blog-title= title
+    p.lead.blog-description.text-right ——Welcome to #{title}
+  div
+    div.blog-post
+      ul.list-unstyled.row
+        h3.h3.bg-info(style="padding:15px;color:green") 按类型分类
+        - each category in categorys
+          li.col-xs-3.text-center.category-list
+            a(href="/category?category="+category.name style="display:block")= category.name
+      ul.list-unstyled.row
+        h3.h3.bg-info(style="padding:15px;color:green") 按作者分类
+        - each author in authors
+          li.col-xs-3.text-center.category-list
+            a(href="/category?author=" + author.user_name style="display:block")= author.user_name

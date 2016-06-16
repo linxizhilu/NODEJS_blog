@@ -1,0 +1,38 @@
+extends layout
+block style
+  style.
+    form .btn {
+      margin:0 10px 0 0;
+     }
+    form div span{
+     padding:0 20px;
+    }
+block content1
+  div.blog-header.text-center
+    h2.blog-title= title
+    p.lead.blog-description.text-center
+      small(style="margin-left:100px;") ——Welcome to #{title}
+  div.blog-post.row
+    form.col-sm-6.col-sm-push-3.form-horizontal(action="/reg" method="post")
+      fieldset
+        legend.text-info 注册界面
+        if hasReged
+          div.form-group.text-danger.text-center.bg-danger 该用户已经被注册
+        if regSuc
+          div.form-group.text-success.text-center.bg-success 恭喜~ 注册成功
+        div.form-group
+          label.col-sm-3.control-label 用户名：
+          div.col-sm-9
+            input.form-control(type="text" name="user_name" id="user_name" placeholder="请输入您的邮箱或者电话..." maxlength="20" required="required" autofocus="autofocus")
+        div.form-group
+          label.col-sm-3.control-label 密 &nbsp;&nbsp;&nbsp; 码：
+          div.col-sm-9
+            input.form-control(type="password" name="user_password" id="user_password" placeholder="请输入您的密码" maxlength="20" required="required")
+        div.form-group
+          label.col-sm-3.control-label 密 &nbsp;&nbsp;&nbsp; 码：
+          div.col-sm-9
+            input.form-control(type="password" name="user_password" id="user_password_confirm" placeholder="密码确认" maxlength="20" required="required")
+        div.form-group
+          div.col-sm-9.col-sm-push-3
+            button.btn.btn-primary.btn-block(type=button id="submitBtn") 注 &nbsp;&nbsp;&nbsp; 册
+

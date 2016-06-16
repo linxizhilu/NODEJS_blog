@@ -1,0 +1,24 @@
+
+a {
+  color: #00B7FF;
+  cursor: pointer;
+  transition: all 0.8s;
+}
+a:hover{
+  color: orange;
+}
+.margin5{
+  margin: 5px;
+}
+.padding5{
+  padding:5px;
+}
+.font-bold{
+  font-weight: bold;
+}
+.fl{
+  float:left;
+}
+.fr{
+  float:right
+}

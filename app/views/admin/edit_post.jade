@@ -1,0 +1,49 @@
+extends layout
+block ckeditor
+  script(src="/ckeditor/ckeditor.js" type="text/javascript")
+block style
+  style.
+    .input-group-addon{
+      background: -webkit-linear-gradient(green,lightblue);
+      color:navajowhite;
+    }
+
+
+block content
+  h1.page-header.text-center.padding5= title
+    small
+      |--
+      = smallTitle
+  div.container-fluid
+    form.row.form-horizontal(action="/admin/post/update?postid="+post._id method="post")
+      div.form-group(style="")
+        label.col-sm-1.control-label 分类：
+        div.col-sm-11
+          - each category in categorys
+            label.checkbox-inline
+              if post.post_category.name == category.name
+                input(type="radio" name="post_category" value=category.name checked=true)
+                = category.name
+              else
+                input(type="radio" name="post_category" value=category.name)
+                = category.name
+      div.form-group
+        div.col-sm-12
+          div.input-group
+            span.input-group-addon 标题：
+            input.form-control(type="text" name="post_title" id="post_title" value=post.post_title placeholder="请输入文章的标题...")
+      div.form-group
+        div.col-sm-12
+          div.input-group
+            span.input-group-addon 来源：
+            input.form-control(type="text" name="post_source" id="post_source" value="" placeholder="请输文章来源...")
+      div.form-group
+        textarea.col-sm-10(name="post_content" rows=10 cols=20)= post.post_content
+        script
+          |CKEDITOR.replace('post_content')
+      div.form-group
+        div.col-sm-6.col-sm-push-3
+          button.btn.btn-primary.btn-block(type="submit" id="submitBtn") 提 交
+
+
+
